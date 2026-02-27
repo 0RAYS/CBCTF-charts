@@ -86,8 +86,8 @@ spec:
           readinessProbe:
             tcpSocket:
               port: http
-            initialDelaySeconds: 20
-            periodSeconds: 10
+            initialDelaySeconds: 10
+            periodSeconds: 5
             failureThreshold: 3
 
           {{- with .Values.resources }}
