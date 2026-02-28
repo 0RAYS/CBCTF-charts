@@ -11,7 +11,7 @@ rules:
   # ── Namespace-scoped resources (in the challenge namespace) ──────────────
   - apiGroups: [""]
     resources: ["pods"]
-    verbs: ["create", "get", "list", "watch", "delete"]
+    verbs: ["create", "get", "list", "watch", "delete", "deletecollection"]
   - apiGroups: [""]
     resources: ["pods/exec"]
     verbs: ["create"]
@@ -23,7 +23,7 @@ rules:
     verbs: ["create", "get", "list", "watch", "delete"]
   - apiGroups: [""]
     resources: ["configmaps"]
-    verbs: ["create", "get", "list", "delete"]
+    verbs: ["create", "get", "list", "delete", "deletecollection"]
   - apiGroups: [""]
     resources: ["persistentvolumeclaims"]
     verbs: ["create", "get", "list", "delete"]
@@ -45,12 +45,12 @@ rules:
   # ── NetworkPolicy ────────────────────────────────────────────────────────
   - apiGroups: ["networking.k8s.io"]
     resources: ["networkpolicies"]
-    verbs: ["create", "get", "list", "delete"]
+    verbs: ["create", "get", "list", "delete", "deletecollection"]
 
   # ── EndpointSlices ───────────────────────────────────────────────────────
   - apiGroups: ["discovery.k8s.io"]
     resources: ["endpointslices"]
-    verbs: ["create", "get", "list", "delete"]
+    verbs: ["create", "get", "list", "delete", "deletecollection"]
 
   # ── Permission self-check ────────────────────────────────────────────────
   - apiGroups: ["authorization.k8s.io"]
@@ -61,19 +61,19 @@ rules:
   # ── Multus CNI (NetworkAttachmentDefinitions) ────────────────────────────
   - apiGroups: ["k8s.cni.cncf.io"]
     resources: ["network-attachment-definitions"]
-    verbs: ["create", "get", "list", "delete"]
+    verbs: ["create", "get", "list", "delete", "deletecollection"]
 {{- end }}
 
 {{- if .Values.cbctf.k8s.kubeovnRBAC }}
   # ── KubeOVN resources (VPC networking mode) ──────────────────────────────
   - apiGroups: ["kubeovn.io"]
     resources: ["subnets", "vpcs"]
-    verbs: ["create", "get", "list", "delete"]
+    verbs: ["create", "get", "list", "delete", "deletecollection"]
   - apiGroups: ["kubeovn.io"]
     resources: ["ips"]
-    verbs: ["delete"]
+    verbs: ["delete", "deletecollection"]
   - apiGroups: ["kubeovn.io"]
     resources: ["iptables-eips", "iptables-dnat-rules", "iptables-snat-rules", "vpc-nat-gateways"]
-    verbs: ["create", "get", "list", "delete"]
+    verbs: ["create", "get", "list", "delete", "deletecollection"]
 {{- end }}
 {{- end }}
